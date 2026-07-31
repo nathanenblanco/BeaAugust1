@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Girlfriend's Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     EDIT ME: search "CONFIG" near the bottom of this
+     file (in the <script> tag) to change names, the
+     letter, timeline, reasons, and photos.
+  ============================================ */
+
+  :root{
+    --cream: #FBF6E9;
+    --cream-2: #F3ECD3;
+    --coral: #FFC93C;
+    --coral-dark: #E8AC1E;
+    --rose: #2F4270;
+    --plum: #0F1B33;
+    --plum-2: #1B2A4A;
+    --gold: #FFC93C;
+    --mint: #7A9B57;
+    --ink: #1B2A4A;
+    --paper: #FFFDF6;
+    --radius: 22px;
+    --shadow: 0 18px 40px rgba(16,26,51,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+  }
+  h1,h2,h3{ font-family: 'Fredoka', sans-serif; margin:0; }
+  .mono{ font-family: 'Space Mono', monospace; }
+  section{ padding: clamp(48px, 8vw, 96px) 20px; position: relative; }
+  .section-inner{ max-width: 920px; margin: 0 auto; }
+  .section-sub{ color: var(--ink); opacity:.65; margin-top:8px; }
+  h2{ font-size: clamp(28px, 5vw, 44px); text-align:center; }
+
+  button{ font-family:'Fredoka', sans-serif; cursor:pointer; border:none; }
+  button:focus-visible, .reason-card:focus-visible{
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .cta{
+    background: var(--coral);
+    color: var(--plum-2);
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-size: 17px;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, background .2s ease;
+  }
+  .cta:hover{ transform: translateY(-3px); background: var(--coral-dark); }
+  .cta.small{ padding: 10px 20px; font-size:15px; }
+  .cta.big{ font-size: 20px; padding: 18px 40px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 92vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,201,60,0.14) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(255,201,60,0.10) 0%, transparent 40%),
+      var(--plum);
+  }
+  .hero-sunflower{
+    position:absolute; font-size: clamp(50px, 9vw, 90px);
+    opacity: .85; filter: drop-shadow(0 8px 14px rgba(0,0,0,.35));
+    animation: sway 5s ease-in-out infinite;
+  }
+  .hero-sunflower.one{ top: 8%; left: 6%; animation-delay: 0s; }
+  .hero-sunflower.two{ bottom: 10%; right: 7%; font-size: clamp(40px, 7vw, 70px); animation-delay: 1.2s; }
+  @keyframes sway{ 0%,100%{ transform: rotate(-6deg);} 50%{ transform: rotate(6deg);} }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: var(--plum-2);
+    background: var(--gold);
+    padding: 6px 14px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    position: relative; z-index: 2;
+  }
+  .hero h1{
+    font-size: clamp(38px, 8vw, 74px);
+    line-height: 1.05;
+    margin: 22px 0 14px;
+    position: relative; z-index: 2;
+  }
+  .hero h1 span.accent{ color: var(--gold); }
+  .hero-sub{ font-size: clamp(16px, 2.4vw, 20px); max-width: 520px; opacity: .82; margin-bottom: 30px; position: relative; z-index: 2; }
+  .scroll-hint{
+    position:absolute; bottom: 24px; font-family:'Space Mono',monospace;
+    font-size: 12px; opacity: .6; animation: bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ---------- SUNFLOWER DIVIDER ---------- */
+  .sunflower-divider{
+    text-align:center; font-size: 20px; letter-spacing: 14px;
+    opacity: .55; padding: 0 0 4px;
+  }
+
+  /* ---------- LETTER / ENVELOPE ---------- */
+  .letter-section{ background: var(--cream-2); display:flex; justify-content:center; }
+  .envelope-wrap{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+  .envelope{
+    position:relative;
+    width: min(90vw, 420px);
+    height: 260px;
+    perspective: 1200px;
+  }
+  .envelope-back{
+    position:absolute; inset:0;
+    background: var(--rose);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .letter-paper{
+    position:absolute;
+    left: 6%; right: 6%; bottom: 8px;
+    height: 82%;
+    background: var(--paper);
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.12);
+    padding: 22px;
+    overflow-y:auto;
+    transform: translateY(14%);
+    transition: transform .7s cubic-bezier(.2,.8,.2,1);
+    z-index: 1;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .envelope.open .letter-paper{ transform: translateY(-58%); z-index: 3; }
+  .letter-paper .signature{ text-align:right; font-family:'Fredoka'; margin-top:14px; color: var(--coral-dark); }
+  .envelope-flap{
+    position:absolute; top:0; left:0; right:0;
+    height: 130px;
+    background: var(--coral);
+    clip-path: polygon(0 0, 100% 0, 50% 85%);
+    transform-origin: top center;
+    transition: transform .6s ease;
+    z-index: 2;
+    border-radius: 12px 12px 0 0;
+  }
+  .envelope.open .envelope-flap{ transform: rotateX(180deg); }
+  .wax-seal{
+    position:absolute; top: 92px; left:50%; transform: translateX(-50%);
+    width: 54px; height:54px; border-radius:50%;
+    background: var(--coral-dark);
+    color: var(--plum-2); display:flex; align-items:center; justify-content:center;
+    font-size: 22px; box-shadow: var(--shadow);
+    z-index: 4; transition: opacity .3s ease, transform .3s ease;
+    border: none; cursor:pointer;
+  }
+  .envelope.open .wax-seal{ opacity: 0; transform: translateX(-50%) scale(0); pointer-events:none; }
+  .envelope-hint{ font-family:'Space Mono',monospace; font-size:13px; opacity:.6; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-section{ background: var(--cream); }
+  .timeline{ margin-top: 48px; position:relative; }
+  .timeline::before{
+    content:''; position:absolute; left:50%; top:0; bottom:0;
+    width:3px; background: var(--rose); transform: translateX(-50%);
+  }
+  .timeline-item{
+    position:relative; width: 50%; padding: 0 40px 48px;
+  }
+  .timeline-item:nth-child(odd){ left:0; text-align:right; }
+  .timeline-item:nth-child(even){ left:50%; text-align:left; }
+  .timeline-dot{
+    position:absolute; top:2px; width:16px; height:16px; border-radius:50%;
+    background: var(--coral); box-shadow: 0 0 0 6px var(--cream-2);
+  }
+  .timeline-item:nth-child(odd) .timeline-dot{ right:-8px; }
+  .timeline-item:nth-child(even) .timeline-dot{ left:-8px; }
+  .timeline-date{ font-family:'Space Mono',monospace; font-size:12px; color:var(--coral-dark); }
+  .timeline-content h3{ font-size:19px; margin: 4px 0 6px; }
+  .timeline-content p{ margin:0; opacity:.75; font-size:14px; }
+
+  @media (max-width: 640px){
+    .timeline::before{ left:14px; }
+    .timeline-item, .timeline-item:nth-child(even){
+      width:100%; left:0; text-align:left; padding-left:38px; padding-right:10px;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot{ left:6px; right:auto; }
+  }
+
+  /* ---------- REASONS ---------- */
+  .reasons-section{ background: var(--cream-2); }
+  .reasons-grid{
+    margin-top: 36px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap: 16px;
+  }
+  .reason-card{
+    background: transparent;
+    height: 150px;
+    perspective: 1000px;
+    padding:0;
+  }
+  .reason-card .flip{
+    position:relative; width:100%; height:100%;
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.2,.8,.2,1);
+  }
+  .reason-card.flipped .flip{ transform: rotateY(180deg); }
+  .reason-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius: 16px; display:flex; align-items:center; justify-content:center;
+    padding: 14px; text-align:center; box-shadow: var(--shadow);
+  }
+  .reason-front{ background: white; font-size: 30px; color: var(--rose); }
+  .reason-front .num{ font-family:'Space Mono',monospace; font-size:12px; color:var(--ink); opacity:.4; position:absolute; top:10px; left:12px; }
+  .reason-back{ background: var(--coral); color:var(--plum-2); transform: rotateY(180deg); font-size:14px; font-weight:700; }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-section{ background: var(--cream); }
+  .gallery-grid{
+    margin-top: 36px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 28px;
+  }
+  .polaroid{
+    background: white;
+    padding: 14px 14px 30px;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    transition: transform .2s ease;
+  }
+  .polaroid:hover{ transform: scale(1.04) rotate(0deg) !important; }
+  .polaroid:nth-child(3n){ transform: rotate(-3deg); }
+  .polaroid:nth-child(3n+1){ transform: rotate(2deg); }
+  .polaroid:nth-child(3n+2){ transform: rotate(-1.5deg); }
+  .photo-placeholder{
+    aspect-ratio: 1/1;
+    border-radius: 3px;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 40px;
+    background: linear-gradient(135deg, var(--rose), var(--coral));
+  }
+  .polaroid figcaption{
+    margin-top: 10px; text-align:center; font-size: 13px; color: var(--ink); opacity:.7;
+  }
+
+  /* ---------- GAME ---------- */
+  .game-section{ background: var(--plum); color: white; }
+  .game-section h2{ color:white; }
+  .game-section .section-sub{ color:white; text-align:center; }
+  .game-hud{
+    display:flex; align-items:center; justify-content:center; gap:18px;
+    margin: 22px 0; font-family:'Space Mono',monospace;
+  }
+  .game-field{
+    position:relative;
+    height: 380px;
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--plum-2);
+    border-radius: var(--radius);
+    overflow:hidden;
+    box-shadow: inset 0 0 40px rgba(0,0,0,.3);
+  }
+  .heart{
+    position:absolute; top:-40px; font-size: 28px; background:none; padding:6px;
+    line-height:1; filter: drop-shadow(0 2px 4px rgba(0,0,0,.3));
+    animation-name: fall; animation-timing-function: linear;
+  }
+  @keyframes fall{ from{ transform: translateY(0);} to{ transform: translateY(420px);} }
+  .game-msg{ text-align:center; margin-top:16px; font-family:'Fredoka'; font-size:18px; min-height:26px; }
+
+  /* ---------- FINALE ---------- */
+  .finale-section{ background: var(--cream-2); text-align:center; }
+  .finale-message{
+    margin-top: 26px; font-size: clamp(22px,4vw,32px); font-family:'Fredoka';
+    color: var(--coral-dark); opacity:0; transform: translateY(10px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .finale-message.show{ opacity:1; transform:translateY(0); }
+
+  footer{
+    text-align:center; padding: 30px 16px; font-family:'Space Mono',monospace;
+    font-size: 12px; opacity:.5;
+  }
+
+  /* confetti */
+  .confetti-piece{
+    position: fixed; top:0; width:8px; height:14px; z-index: 999;
+    pointer-events:none; opacity:.95;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: .001s !important; transition-duration: .001s !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="hero-sunflower one" aria-hidden="true">🌻</span>
+  <span class="hero-sunflower two" aria-hidden="true">🌻</span>
+  <p class="eyebrow mono">National Girlfriend's Day · Aug 1</p>
+  <h1>Happy Girlfriend's<br><span class="accent">Day</span>, <span id="heroName">You</span> 💌</h1>
+  <p class="hero-sub">I built you an entire website because a text felt way too small for how I feel about you.</p>
+  <button class="cta" onclick="document.getElementById('letter').scrollIntoView()">Break the seal ✉️</button>
+  <div class="scroll-hint mono">scroll ↓</div>
+</section>
+
+<section class="letter-section" id="letter">
+  <div class="envelope-wrap">
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="letter-paper" id="letterPaper"><span id="letterText"></span></div>
+      <div class="envelope-flap"></div>
+      <button class="wax-seal" id="waxSeal" aria-label="Open the letter">♥</button>
+    </div>
+    <p class="envelope-hint mono">tap the seal</p>
+  </div>
+</section>
+
+<p class="sunflower-divider" aria-hidden="true">🌻 🌻 🌻</p>
+<section class="timeline-section" id="timeline-section">
+  <div class="section-inner">
+    <h2>Our Story So Far</h2>
+    <div class="timeline" id="timelineList"></div>
+  </div>
+</section>
+
+<section class="reasons-section" id="reasons">
+  <div class="section-inner">
+    <h2>Reasons I Love You</h2>
+    <p class="section-sub" style="text-align:center">Tap a card. There's more where that came from.</p>
+    <div class="reasons-grid" id="reasonsGrid"></div>
+  </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+  <div class="section-inner">
+    <h2>Us, In Pictures</h2>
+    <p class="section-sub" style="text-align:center">(swap these placeholders for your real photos — see the comment in the code)</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<section class="game-section" id="game">
+  <div class="section-inner">
+    <h2>Catch the Love</h2>
+    <p class="section-sub">Pop <span id="scoreTarget">15</span> hearts before they hit the bottom.</p>
+    <div class="game-hud">
+      <span>SCORE: <span id="score">0</span></span>
+      <button class="cta small" id="startGame">Start</button>
+    </div>
+    <div class="game-field" id="gameField"></div>
+    <p class="game-msg" id="gameMsg"></p>
+  </div>
+</section>
+
+<p class="sunflower-divider" aria-hidden="true">🌻 🌻 🌻</p>
+<section class="finale-section" id="finale">
+  <div class="section-inner">
+    <h2>One Last Thing</h2>
+    <button class="cta big" id="finaleBtn">Tap here</button>
+    <div class="finale-message" id="finaleMessage"></div>
+  </div>
+</section>
+
+<footer>🌻 made with way too much love · Girlfriend's Day <span id="year"></span></footer>
+
+<script>
+/* ============================================================
+   CONFIG — edit everything in here to make this yours.
+   Nothing below this block needs to change.
+============================================================ */
+const CONFIG = {
+  herName: "Bean",          // her name or nickname
+  yourName: "Van",              // your name / signoff
+
+  letter: `Hey, my beautiful girlfriend,
+
+I know it's just a random day on the calendar, but I wanted an excuse to remind you how much you mean to me. You make ordinary days feel like something worth looking forward to, and I don't say that enough.
+
+So happy Girlfriend's Day!. Scroll down, there's more.`,
+
+  timeline: [
+    { date: "The Beginning", title: "How we met", text: "It all started when we both confessed our feelings at December!" },
+    { date: "Our First Date", title: "SM BACOORRRR", text: "I knew I wanted to keep going after our first date. :3" },
+    { date: "My Favorite Memory", title: "The day where it truly started", text: "Need I say more? This was when we were truly official." },
+    { date: "Today", title: "Still going strong!", text: "We're currently long distance now. It's hard but I know youll be by my side at the end, and that makes everything worth it." }
+  ],
+
+  reasons: [
+    "The way you laugh and giggle! ITS SO CUTE I SWEAR",
+    "The effort you put in the relationship",
+    "How you make any place feel like home",
+    "Your amazing taste in bread and music",
+    "The way you say my name when I do something stupid",
+    "You're my favorite person to do nothing with",
+    "How you try to be strong even on your worst days",
+    "You make me want to be better, without ever asking me to",
+    "Your hugs fix things words can't. I miss it so much honestly",
+    "That awesome smile of yours. I can't get enough of it UGHH",
+    "The way you say thank you just because we spent time together",
+    "Just... you!!! All of it."
+  ],
+
+  // Replace `emoji` with a real photo by swapping the .photo-placeholder div
+  // for: <img src="photos/1.jpg" alt="caption"> — same idea for each entry.
+  photos: [
+    { caption: "Our Valentines date", emoji: "🏖️" },
+    { caption: "Coffee?", emoji: "☕" },
+    { caption: "IM BEGGING Oh my god", emoji: "🎬" },
+    { caption: "Swimming :P", emoji: "🎶" },
+    { caption: "Intramurals!", emoji: "🌆" },
+    { caption: "April 8", emoji: "🌙" }
+  ],
+
+  finalMessage: "I love you more than a website can really show Bean. Happy Girlfriend's Day and goodluck with the UPCAT!."
+};
+
+/* ============================================================ */
+
+document.getElementById('heroName').textContent = CONFIG.herName;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ---------- Letter ----------
+const envelope = document.getElementById('envelope');
+const waxSeal = document.getElementById('waxSeal');
+const letterTextEl = document.getElementById('letterText');
+let letterTyped = false;
+
+function typeWriter(el, text, speed=18){
+  let i = 0;
+  el.textContent = '';
+  const timer = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if(i >= text.length) clearInterval(timer);
+  }, speed);
+}
+
+waxSeal.addEventListener('click', () => {
+  envelope.classList.add('open');
+  spawnConfetti(window.innerWidth/2, 260, 26);
+  if(!letterTyped){
+    letterTyped = true;
+    setTimeout(() => typeWriter(letterTextEl, CONFIG.letter + "\n\n— " + CONFIG.yourName, 16), 500);
+  }
+});
+
+// ---------- Timeline ----------
+const timelineList = document.getElementById('timelineList');
+CONFIG.timeline.forEach(item => {
+  const div = document.createElement('div');
+  div.className = 'timeline-item';
+  div.innerHTML = `
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date mono">${item.date}</div>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+    </div>`;
+  timelineList.appendChild(div);
+});
+
+// ---------- Reasons ----------
+const reasonsGrid = document.getElementById('reasonsGrid');
+CONFIG.reasons.forEach((reason, i) => {
+  const card = document.createElement('button');
+  card.className = 'reason-card';
+  card.setAttribute('aria-label', 'Reveal a reason');
+  card.innerHTML = `
+    <div class="flip">
+      <div class="reason-face reason-front"><span class="num mono">${String(i+1).padStart(2,'0')}</span>♥</div>
+      <div class="reason-face reason-back">${reason}</div>
+    </div>`;
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  reasonsGrid.appendChild(card);
+});
+
+// ---------- Gallery ----------
+const galleryGrid = document.getElementById('galleryGrid');
+CONFIG.photos.forEach(p => {
+  const fig = document.createElement('figure');
+  fig.className = 'polaroid';
+  fig.innerHTML = `<div class="photo-placeholder">${p.emoji}</div><figcaption>${p.caption}</figcaption>`;
+  galleryGrid.appendChild(fig);
+});
+
+// ---------- Game: Catch the Love ----------
+const gameField = document.getElementById('gameField');
+const scoreEl = document.getElementById('score');
+const startGameBtn = document.getElementById('startGame');
+const gameMsg = document.getElementById('gameMsg');
+const scoreTarget = 15;
+document.getElementById('scoreTarget').textContent = scoreTarget;
+let score = 0;
+let gameInterval = null;
+let gameRunning = false;
+
+function spawnHeart(){
+  const heart = document.createElement('button');
+  heart.className = 'heart';
+  heart.textContent = '❤️';
+  heart.setAttribute('aria-label', 'Catch heart');
+  const fieldWidth = gameField.clientWidth;
+  const x = Math.random() * (fieldWidth - 40);
+  heart.style.left = x + 'px';
+  const duration = 2.4 + Math.random() * 1.6;
+  heart.style.animationDuration = duration + 's';
+  gameField.appendChild(heart);
+
+  const remove = () => { if(heart.parentNode) heart.parentNode.removeChild(heart); };
+  heart.addEventListener('animationend', remove);
+  heart.addEventListener('click', () => {
+    if(!gameRunning) return;
+    score++;
+    scoreEl.textContent = score;
+    const rect = heart.getBoundingClientRect();
+    spawnConfetti(rect.left, rect.top, 8);
+    remove();
+    if(score >= scoreTarget){
+      endGame(true);
+    }
+  });
+}
+
+function endGame(won){
+  gameRunning = false;
+  clearInterval(gameInterval);
+  gameMsg.textContent = won ? "You caught all my heart. Literally." : "Game paused — hit start to keep going.";
+  if(won) spawnConfetti(window.innerWidth/2, window.innerHeight/2, 40);
+}
+
+startGameBtn.addEventListener('click', () => {
+  if(gameRunning) return;
+  score = 0;
+  scoreEl.textContent = 0;
+  gameMsg.textContent = '';
+  gameField.innerHTML = '';
+  gameRunning = true;
+  gameInterval = setInterval(spawnHeart, 650);
+});
+
+// ---------- Finale ----------
+const finaleBtn = document.getElementById('finaleBtn');
+const finaleMessage = document.getElementById('finaleMessage');
+finaleBtn.addEventListener('click', () => {
+  finaleMessage.textContent = CONFIG.finalMessage;
+  finaleMessage.classList.add('show');
+  finaleBtn.style.display = 'none';
+  let bursts = 0;
+  const burstInterval = setInterval(() => {
+    spawnConfetti(Math.random()*window.innerWidth, -20, 30);
+    bursts++;
+    if(bursts >= 4) clearInterval(burstInterval);
+  }, 400);
+});
+
+// ---------- Confetti ----------
+const confettiColors = ['#FFC93C', '#E8AC1E', '#2F4270', '#1B2A4A', '#FBF6E9', '#7A9B57'];
+function spawnConfetti(x, y, count=20){
+  for(let i=0; i<count; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = x + 'px';
+    piece.style.top = y + 'px';
+    piece.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+    const dx = (Math.random()-0.5) * 300;
+    const dy = 200 + Math.random()*300;
+    const rot = Math.random()*720 - 360;
+    const duration = 900 + Math.random()*700;
+    piece.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity: 0 }
+    ], { duration, easing: 'cubic-bezier(.2,.6,.3,1)' });
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), duration);
+  }
+}
+</script>
+</body>
+</html>
