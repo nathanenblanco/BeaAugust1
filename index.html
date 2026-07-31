@@ -262,6 +262,13 @@
     font-size: 40px;
     background: linear-gradient(135deg, var(--rose), var(--coral));
   }
+  .photo-real{
+    aspect-ratio: 1/1;
+    width: 100%;
+    border-radius: 3px;
+    object-fit: cover;
+    display: block;
+  }
   .polaroid figcaption{
     margin-top: 10px; text-align:center; font-size: 13px; color: var(--ink); opacity:.7;
   }
@@ -395,8 +402,8 @@
    Nothing below this block needs to change.
 ============================================================ */
 const CONFIG = {
-  herName: "Bean",          // her name or nickname
-  yourName: "Van",              // your name / signoff
+  herName: "Bean",
+  yourName: "Van",
 
   letter: `Hey, my beautiful girlfriend,
 
@@ -426,8 +433,8 @@ So happy Girlfriend's Day!. Scroll down, there's more.`,
     "Just... you!!! All of it."
   ],
 
-  // Replace `emoji` with a real photo by swapping the .photo-placeholder div
-  // for: <img src="photos/1.jpg" alt="caption"> — same idea for each entry.
+  // Add `emoji: "🏖️"` instead of `img` on any entry you haven't
+  // photographed yet — it'll fall back to that automatically.
   photos: [
     { caption: "Our Valentines date", img: "photos/photo1.jpg" },
     { caption: "Coffee?", img: "photos/photo2.jpg" },
@@ -505,7 +512,10 @@ const galleryGrid = document.getElementById('galleryGrid');
 CONFIG.photos.forEach(p => {
   const fig = document.createElement('figure');
   fig.className = 'polaroid';
-  fig.innerHTML = `<div class="photo-placeholder">${p.emoji}</div><figcaption>${p.caption}</figcaption>`;
+  const media = p.img
+    ? `<img src="${p.img}" alt="${p.caption}" class="photo-real">`
+    : `<div class="photo-placeholder">${p.emoji}</div>`;
+  fig.innerHTML = `${media}<figcaption>${p.caption}</figcaption>`;
   galleryGrid.appendChild(fig);
 });
 
